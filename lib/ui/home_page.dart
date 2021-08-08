@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_management_app/components/booking_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,23 +23,24 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Container(
-            color: Colors.green,
-          ),
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.blue,
-          ),
-          Container(
-            color: Colors.orange,
-          ),
-        ],
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Container(
+              color: Colors.green,
+            ),
+            BookingWidget(),
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              color: Colors.orange,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (idx) {
