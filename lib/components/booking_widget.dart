@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_management_app/components/booking_list.dart';
 import 'package:salon_management_app/model/category.dart';
 
 class BookingWidget extends StatefulWidget {
@@ -10,6 +11,15 @@ class BookingWidget extends StatefulWidget {
 
 class _BookingWidgetState extends State<BookingWidget> {
   var _index = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _pageController = PageController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,6 +54,7 @@ class _BookingWidgetState extends State<BookingWidget> {
                             onTap: () {
                               setState(() {
                                 _index = index;
+                                _pageController.jumpToPage(_index);
                               });
                             },
                             child: Container(
@@ -76,7 +87,25 @@ class _BookingWidgetState extends State<BookingWidget> {
         ),
         Expanded(
           flex: 15,
-          child: Placeholder(),
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _pageController,
+            children: [
+              BookingList(),
+              Container(
+                child: Text('Accepted'),
+              ),
+              Container(
+                child: Text('Completed'),
+              ),
+              Container(
+                child: Text('Decline'),
+              ),
+              Container(
+                child: Text('Other'),
+              )
+            ],
+          ),
         ),
       ],
     );
