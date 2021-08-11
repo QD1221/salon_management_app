@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:salon_management_app/components/booking_customer_widget.dart';
 import 'package:salon_management_app/components/booking_detail_service_widget.dart';
+import 'package:salon_management_app/components/booking_item.dart';
 import 'package:salon_management_app/components/booking_staff_widget.dart';
+import 'package:salon_management_app/model/booking.dart';
 
 class BookingDetailPage extends StatelessWidget {
   String title;
+  Booking booking;
   BookingDetailPage({
     Key? key,
     required this.title,
+    required this.booking,
   }) : super(key: key);
 
   @override
@@ -43,6 +47,7 @@ class BookingDetailPage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
+            BookingItem(booking: booking),
           ],
         ),
       ),

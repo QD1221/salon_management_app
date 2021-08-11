@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salon_management_app/components/booking_widget.dart';
+import 'package:salon_management_app/ui/manage_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,9 +34,7 @@ class _HomePageState extends State<HomePage>
               color: Colors.green,
             ),
             BookingWidget(),
-            Container(
-              color: Colors.blue,
-            ),
+            ManagePage(),
             Container(
               color: Colors.orange,
             ),
@@ -44,6 +43,12 @@ class _HomePageState extends State<HomePage>
       ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: (idx) {
+            if (idx == 2)
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ManagePage(),
+                ),
+              );
             _pageController.jumpToPage(idx);
             setState(() {
               _pageIndex = idx;
