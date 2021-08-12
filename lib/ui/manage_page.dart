@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:salon_management_app/model/staff.dart';
 
 class ManagePage extends StatelessWidget {
   const ManagePage({Key? key}) : super(key: key);
@@ -8,6 +10,9 @@ class ManagePage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: Colors.black
+        ),
         title: Text('Manage Staff'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -16,7 +21,9 @@ class ManagePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.add_box, color: Colors.black,),
+            icon: Icon(
+              Icons.add_box,
+            ),
           )
         ],
       ),
@@ -46,8 +53,68 @@ class ManagePage extends StatelessWidget {
             height: 8,
           ),
           Expanded(
-            child: Container(
-              color: Colors.white,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                final controller = AdvancedSwitchController(manageStaffItems[index].isOn);
+                return Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 54,
+                        width: 54,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '${manageStaffItems[index].profileImg}'))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${manageStaffItems[index].name}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Text(
+                                '${manageStaffItems[index].subtitle}',
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                            ),
+                            Text(
+                              '${manageStaffItems[index].services}',
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(Icons.more_horiz),
+                          SizedBox(height: 16,),
+                          AdvancedSwitch(
+                            controller: controller,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => Divider(
+                color: Colors.grey[200],
+                thickness: 5,
+              ),
+              itemCount: manageStaffItems.length,
             ),
             flex: 10,
           ),
